@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd">
 	
-	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8084" doc:name="HTTP Listener Configuration" />
+	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration" />
 	
 	<spring:beans>
 		<spring:bean id="Bean" name="Bean" class="com.mulesoft.training.Database" />
@@ -35,7 +35,7 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 	<flow name="maven-projectFlow">
 		<http:listener config-ref="HTTP_Listener_Configuration" path="/flights" allowedMethods="GET" doc:name="HTTP" />
 		<db:select config-ref="Derby_Configuration" doc:name="Database">
-			<db:parameterized-query><![CDATA[SELECT * FROM flights]]></db:parameterized-query>
+            <db:parameterized-query><![CDATA[SELECT * FROM flights]]></db:parameterized-query>
 		</db:select>
 		<json:object-to-json-transformer doc:name="Object to JSON" />
 		<jms:outbound-endpoint queue="flights" connector-ref="Active_MQ" doc:name="sendToJMS: flights" />
